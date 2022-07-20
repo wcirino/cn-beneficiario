@@ -19,7 +19,7 @@ import com.cn.beneficiario.dto.Beneficiario;
 import com.cn.beneficiario.service.impl.BeneficiarioServiceImpl;
 
 @RestController
-@RequestMapping(value = "api-beneficiario")
+@RequestMapping(value = "/api-beneficiario")
 public class BeneficiarioController {
 
 	@Autowired
@@ -39,6 +39,12 @@ public class BeneficiarioController {
 		List<Beneficiario> benef = proxyBenef.findAll_beneficiario();
 		LOG.info("fim findAllBeneficiarios");
 		return new ResponseEntity<>(benef,HttpStatus.OK);
+	}
+	@GetMapping(value = "/")
+	public ResponseEntity<?> findAllBeneficiariostest() throws Exception{
+		LOG.info("iniciando findAllBeneficiarios");
+		LOG.info("fim findAllBeneficiarios");
+		return new ResponseEntity<>("Chegou na requisição",HttpStatus.OK);
 	}
 
 	

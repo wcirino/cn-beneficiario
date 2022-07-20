@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.cn.beneficiario.dto.ConsultaDTO;
 
 @Component
-@FeignClient(name = "cn-agendamento-exame-consulta",url = "localhost:8054", path ="/api-consulta")
+@FeignClient(value = "cn-agendamento-exame-consulta", path ="/api-consulta")
 public interface cnAgendamentoExameConsultaFeignClient {
 
 	@GetMapping(value = "/consulta-all")
