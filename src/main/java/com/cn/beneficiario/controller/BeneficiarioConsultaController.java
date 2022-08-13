@@ -37,5 +37,5 @@ public class BeneficiarioConsultaController {
 		ConsultaDTO consultas = consulta.BuscaConsultasIDService(id);
 		return  new ResponseEntity<>(consultas,HttpStatus.OK);
 	}
-		
+
 }

@@ -7,9 +7,14 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.cn.beneficiario.dto.Beneficiario;
+import com.cn.beneficiario.dto.BeneficiarioPageDTO;
+import com.cn.beneficiario.feignclients.cnCarteirinhaFeign;
 import com.cn.beneficiario.repository.BeneficiarioRepository;
 
 
@@ -19,6 +24,12 @@ public class BeneficiarioServiceImpl {
 	@Autowired
 	private BeneficiarioRepository repository; 
 		
+	@Autowired
+	private cnCarteirinhaFeign carteirinha;
+	
+	@Autowired
+	RestTemplate restTemplate;
+	
 	private static final Logger LOG = LoggerFactory.getLogger(BeneficiarioServiceImpl.class);
 	
 	public Beneficiario find_beneficiario_id(int id) throws Exception{
@@ -40,7 +51,7 @@ public class BeneficiarioServiceImpl {
 		if(!repository.existsById(dto.getIdbenef())) {
 			LOG.info("Pegando dados InsertBeneficiario");
 			dto.setData_cadas(new Date(System.currentTimeMillis()));
-			dto.setCarteirinha("");
+			dto.setCarteirinha(this.gerarCarteirinha());
 			LOG.info("inserindo InsertBeneficiario");
 			Beneficiario obj = repository.save(dto);
 			LOG.info("retornando InsertBeneficiario");
@@ -63,6 +74,20 @@ public class BeneficiarioServiceImpl {
 			throw new Exception("o beneficiario não possui Id");
 		}
 	}
+	
+	public BeneficiarioPageDTO findAll_beneficiario_page(Pageable page) throws Exception{
+		LOG.info("iniciando findAll_beneficiario");
+		Optional<Page<Beneficiario>> obj = Optional.ofNullable(repository.findAll(page));
+		BeneficiarioPageDTO dto = new BeneficiarioPageDTO(obj.get().getContent(), obj.get().getTotalElements(),
+														  obj.get().getTotalPages(), obj.get().getSize(),
+				                                          obj.get().getNumberOfElements());
+		LOG.info("Fim findAll_beneficiario");
+		return dto;
+	}
+	
+    public String gerarCarteirinha() throws Exception {
+    	return carteirinha.GerarCarteirinha().getBody();
+    }
 	
 	/*
 	 * private benefConsultaDTO beneficiariomodelMapperOne(Beneficiario dto) {
