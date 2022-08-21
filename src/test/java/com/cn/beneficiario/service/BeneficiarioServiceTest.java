@@ -7,12 +7,15 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.clinica.dto.AgendamentoDTO;
 import com.cn.beneficiario.dto.Beneficiario;
 import com.cn.beneficiario.repository.BeneficiarioRepository;
 import com.cn.beneficiario.service.impl.BeneficiarioServiceImpl;
@@ -25,6 +28,18 @@ public class BeneficiarioServiceTest {
 	
 	@Mock
 	private BeneficiarioRepository repository;
+	
+	List<Beneficiario> listBenef;
+	
+	Beneficiario Benef1;
+	Beneficiario Benef2;
+	
+	@BeforeEach
+	public void setUp() {
+		MockitoAnnotations.openMocks(this);
+		this.Benef1 = this.criandoObjeto();
+		this.listBenef = this.criandoListObjeto();
+	}
 	
 	@Test
 	public void devePesquisarTodosBeneficiarios() throws Exception{
