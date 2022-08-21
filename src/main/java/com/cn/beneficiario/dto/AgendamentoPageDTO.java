@@ -17,9 +17,9 @@ public class AgendamentoPageDTO  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private List<AgendamentoDTO> lista_consulta;
-	private long totalElements;
-	private long totalPages;
-	private long size;
-	private long pageNumber;	
+	private Long totalElements;
+	private Long totalPages;
+	private Long size;
+	private Long pageNumber;	
 	
 }
