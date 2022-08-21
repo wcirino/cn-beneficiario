@@ -48,7 +48,10 @@ public class BeneficiarioServiceImpl {
 			
 	public Beneficiario InsertBeneficiario(Beneficiario dto) throws Exception{
 		LOG.info("iniciando InsertBeneficiario");
-		if(!repository.existsById(dto.getIdbenef())) {
+		if(dto == null || dto.getIdbenef() != null){
+			throw new Exception("o beneficiario possui Id");
+		}
+		else {
 			LOG.info("Pegando dados InsertBeneficiario");
 			dto.setData_cadas(new Date(System.currentTimeMillis()));
 			dto.setCarteirinha(this.gerarCarteirinha());
@@ -57,21 +60,18 @@ public class BeneficiarioServiceImpl {
 			LOG.info("retornando InsertBeneficiario");
 			return obj;
 		}
-		else {
-			throw new Exception("o beneficiario possui Id");
-		}
 	}
 	
 	public Beneficiario UpdateBeneficiario(Beneficiario dto) throws Exception{
 		LOG.info("iniciando UpdateBeneficiario");
-		if(repository.existsById(dto.getIdbenef())) {
+		if(dto == null || dto.getIdbenef() == null){
+			throw new Exception("O beneficiario não possui Id");
+		}
+		else {
 			LOG.info("UpdateBeneficiario");
 			Beneficiario obj = repository.save(dto);
 			LOG.info("retornando UpdateBeneficiario");
 			return obj;
-		}
-		else {
-			throw new Exception("o beneficiario não possui Id");
 		}
 	}
 	

@@ -1,8 +1,12 @@
 package com.cn.beneficiario.service;
 
 import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -32,11 +36,13 @@ public class BeneficiarioServiceTest {
 	
 	Beneficiario Benef1;
 	Beneficiario Benef2;
+	Beneficiario Benef5;
 	
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
 		this.Benef1 = this.criandoObjeto();
+		this.Benef2 = this.criandoObjeto();
 		this.listBenef = this.criandoListObjeto();
 	}
 	
@@ -61,6 +67,53 @@ public class BeneficiarioServiceTest {
 		assertEquals(dto,obj);
 	}
 	
+	//@Test
+	public void DeveInserirComSuscessoBeneficiario() throws Exception{
+		
+		Beneficiario benef = this.Benef1;
+		Beneficiario benef3;
+		
+		benef.setIdbenef(null);
+		Benef1.setIdbenef(null);
+		
+		when(repository.save(benef)).thenReturn(benef);
+
+		benef3 = service.InsertBeneficiario(Benef1);
+
+		assertEquals(benef3,benef);
+	}
+	
+	@Test
+	public void DeveUpdateBeneficiarioComSucesso() throws Exception{
+		Beneficiario benef = this.Benef1;
+		Beneficiario benef3;
+		
+		when(repository.save(benef)).thenReturn(benef);
+
+		benef3 = service.UpdateBeneficiario(Benef1);
+
+		assertEquals(benef3,benef);
+	}
+
+	@Test
+	public void deveInserirAgendamentoErroDtoNull() throws Exception{
+		Beneficiario benef4;
+		
+		this.Benef5 = this.criandoObjetoNull();
+		benef4 = this.criandoObjetoNull();
+		
+		
+		when(repository.save(Benef5)).thenReturn(benef4);
+
+		Throwable exception = catchThrowable(() -> service.InsertBeneficiario(this.Benef5));
+		
+		assertThat(exception)
+        .isInstanceOf(Exception.class)
+        .hasMessage("o beneficiario possui Id");
+		
+		verify(repository,never()).save(Benef5);
+	}
+
 	private Beneficiario criandoObjeto() {
 		return Beneficiario.builder()
 				.ativo("S")

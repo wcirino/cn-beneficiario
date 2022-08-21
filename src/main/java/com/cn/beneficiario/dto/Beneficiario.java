@@ -30,7 +30,7 @@ public class Beneficiario   implements Serializable{
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY )
 	@Column(name = "idbenef")
-	private int idbenef;
+	private Integer idbenef;
 		
 	@NotBlank
 	@Column(name = "nome_comp")
