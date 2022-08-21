@@ -15,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.clinica.dto.AgendamentoDTO;
 import com.cn.beneficiario.dto.Beneficiario;
 import com.cn.beneficiario.repository.BeneficiarioRepository;
 import com.cn.beneficiario.service.impl.BeneficiarioServiceImpl;
