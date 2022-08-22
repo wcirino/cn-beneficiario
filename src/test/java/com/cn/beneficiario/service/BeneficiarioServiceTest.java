@@ -113,6 +113,25 @@ public class BeneficiarioServiceTest {
 		
 		verify(repository,never()).save(Benef5);
 	}
+	
+	@Test
+	public void deveInserirAgendamentoErroDtoComID() throws Exception{
+		Beneficiario benef4;
+		
+		this.Benef5 = this.criandoObjeto();
+		benef4 = this.criandoObjeto();
+		
+		
+		when(repository.save(Benef5)).thenReturn(benef4);
+
+		Throwable exception = catchThrowable(() -> service.InsertBeneficiario(this.Benef5));
+		
+		assertThat(exception)
+        .isInstanceOf(Exception.class)
+        .hasMessage("o beneficiario possui Id");
+		
+		verify(repository,never()).save(Benef5);
+	}
 
 	private Beneficiario criandoObjeto() {
 		return Beneficiario.builder()
