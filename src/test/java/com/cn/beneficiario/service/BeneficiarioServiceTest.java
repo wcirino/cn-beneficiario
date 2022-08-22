@@ -111,6 +111,8 @@ public class BeneficiarioServiceTest {
         .isInstanceOf(Exception.class)
         .hasMessage("o beneficiario possui Id");
 		
+		assertThat(Benef5 == null);
+		
 		verify(repository,never()).save(Benef5);
 	}
 	
@@ -129,6 +131,8 @@ public class BeneficiarioServiceTest {
 		assertThat(exception)
         .isInstanceOf(Exception.class)
         .hasMessage("o beneficiario possui Id");
+		
+		assertThat(Benef5.getIdbenef() != null);
 		
 		verify(repository,never()).save(Benef5);
 	}
