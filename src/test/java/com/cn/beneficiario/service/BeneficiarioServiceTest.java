@@ -107,11 +107,11 @@ public class BeneficiarioServiceTest {
 
 		Throwable exception = catchThrowable(() -> service.InsertBeneficiario(this.Benef5));
 		
+		assertThat(Benef5 == null);
+		
 		assertThat(exception)
         .isInstanceOf(Exception.class)
         .hasMessage("o beneficiario possui Id");
-		
-		assertThat(Benef5 == null);
 		
 		verify(repository,never()).save(Benef5);
 	}
@@ -128,11 +128,11 @@ public class BeneficiarioServiceTest {
 
 		Throwable exception = catchThrowable(() -> service.InsertBeneficiario(this.Benef5));
 		
+		assertThat(Benef5.getIdbenef() != null);
+		
 		assertThat(exception)
         .isInstanceOf(Exception.class)
         .hasMessage("o beneficiario possui Id");
-		
-		assertThat(Benef5.getIdbenef() != null);
 		
 		verify(repository,never()).save(Benef5);
 	}
