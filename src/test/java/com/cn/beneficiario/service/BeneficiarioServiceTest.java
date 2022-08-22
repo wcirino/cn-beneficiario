@@ -137,6 +137,54 @@ public class BeneficiarioServiceTest {
 		verify(repository,never()).save(Benef5);
 	}
 
+	//O beneficiario não possui Id
+	
+	@Test
+	public void deveUpdateBeneficiarioErroDtoNull() throws Exception{
+		Beneficiario benef4;
+		
+		this.Benef5 = this.criandoObjetoNull();
+		benef4 = this.criandoObjetoNull();
+		
+		
+		when(repository.save(Benef5)).thenReturn(benef4);
+
+		Throwable exception = catchThrowable(() -> service.UpdateBeneficiario(this.Benef5));
+		
+		assertThat(Benef5 == null);
+		
+		assertThat(exception)
+        .isInstanceOf(Exception.class)
+        .hasMessage("O beneficiario não possui Id");
+				
+		verify(repository,never()).save(Benef5);
+	}
+	
+	@Test
+	public void deveUpdateBeneficiarioErroDtoNullID() throws Exception{
+		Beneficiario benef4;
+		
+		this.Benef5 = this.criandoObjeto();
+		benef4 = this.criandoObjeto();
+		
+		Benef5.setIdbenef(null);
+		benef4.setIdbenef(null);
+		
+		
+		when(repository.save(Benef5)).thenReturn(benef4);
+
+		Throwable exception = catchThrowable(() -> service.UpdateBeneficiario(this.Benef5));
+		
+		assertThat(Benef5.getIdbenef() == null);
+		
+		assertThat(exception)
+        .isInstanceOf(Exception.class)
+        .hasMessage("O beneficiario não possui Id");
+		
+		verify(repository,never()).save(Benef5);
+	}
+	
+	
 	private Beneficiario criandoObjeto() {
 		return Beneficiario.builder()
 				.ativo("S")
