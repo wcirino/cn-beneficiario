@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cn.beneficiario.dto.ConsultaDTO;
-import com.cn.beneficiario.service.impl.BeneficiarioConsultaService;
+import com.cn.beneficiario.feignclients.service.impl.BeneficiarioConsultaService;
 
 @RestController
 @RequestMapping(value = "/api-beneficiario-consulta")

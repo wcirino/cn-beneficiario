@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cn.beneficiario.dto.ExamePageDTO;
-import com.cn.beneficiario.service.impl.BeneficiarioExameService;
+import com.cn.beneficiario.feignclients.service.impl.BeneficiarioExameService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

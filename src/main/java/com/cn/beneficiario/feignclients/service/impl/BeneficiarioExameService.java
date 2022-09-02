@@ -1,4 +1,4 @@
-package com.cn.beneficiario.service.impl;
+package com.cn.beneficiario.feignclients.service.impl;
 
 import java.util.Optional;
 

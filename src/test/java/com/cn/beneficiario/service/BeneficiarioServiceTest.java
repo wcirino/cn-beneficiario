@@ -9,17 +9,26 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.cn.beneficiario.dto.Beneficiario;
+import com.cn.beneficiario.dto.BeneficiarioPageDTO;
+import com.cn.beneficiario.feignclients.cnCarteirinhaFeign;
 import com.cn.beneficiario.repository.BeneficiarioRepository;
 import com.cn.beneficiario.service.impl.BeneficiarioServiceImpl;
 
@@ -31,6 +40,9 @@ public class BeneficiarioServiceTest {
 	
 	@Mock
 	private BeneficiarioRepository repository;
+	
+	@MockBean
+	private cnCarteirinhaFeign carteirinha;
 	
 	List<Beneficiario> listBenef;
 	
@@ -67,7 +79,7 @@ public class BeneficiarioServiceTest {
 		assertEquals(dto,obj);
 	}
 	
-	//@Test
+	@Test
 	public void DeveInserirComSuscessoBeneficiario() throws Exception{
 		
 		Beneficiario benef = this.Benef1;
@@ -184,6 +196,44 @@ public class BeneficiarioServiceTest {
 		verify(repository,never()).save(Benef5);
 	}
 	
+	@Test
+	public void DeveBuscarAllBeneficiarioPage() throws Exception{
+	
+		
+		//Page<Company> pagedResponse = new PageImpl(companies);
+        Pageable pg = PageRequest.of(0, 10);
+        List<Beneficiario> beneficiarios = new ArrayList<Beneficiario>();
+        Page<Beneficiario> pgresponse = new PageImpl<Beneficiario>(beneficiarios);
+		when(repository.findAll(pg)).thenReturn(pgresponse);
+		
+		BeneficiarioPageDTO pgResponse2 = service.findAll_beneficiario_page(pg);
+       
+		assertThat(pgResponse2.getTotalPages() > 0);
+	} 
+	
+	@Test
+	public void DeveGerarCarteirinha() throws Exception{
+
+		String numCart = "123456789";
+		String numCart2;
+		when(carteirinha.GerarCarteirinha().getBody()).thenReturn(numCart);
+		numCart2 = service.gerarCarteirinha();
+
+		assertEquals(numCart,numCart2);
+	}
+	
+	/*
+	 * @Test public void DeveGerarCarterinha() { String numCart = "0123456789";
+	 * 
+	 * }
+	 */
+	
+	/*
+	 * private void buildFeignClient(MockClient mockClient) { feignCart =
+	 * Feign.builder() .client(mockClient) .encoder(new JacksonEncoder())
+	 * .decoder(new JacksonDecoder()) .contract(new SpringMvcContract())
+	 * .target(PostClient.class, "localhost:8080"); }
+	 */
 	
 	private Beneficiario criandoObjeto() {
 		return Beneficiario.builder()

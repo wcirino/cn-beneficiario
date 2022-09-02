@@ -1,9 +1,5 @@
 package com.cn.beneficiario.service;
 
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
-
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -11,13 +7,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.cn.beneficiario.dto.AgendamentoPageDTO;
 import com.cn.beneficiario.feignclients.cnAgendamentoFeignClient;
-import com.cn.beneficiario.service.impl.BeneficiarioAgendamentoService;
 
 @ExtendWith(SpringExtension.class)
 public class BeneficiarioAgendamentoServiceTest {
 
 	@InjectMocks
-	private BeneficiarioAgendamentoService service;
+	private com.cn.beneficiario.feignclients.service.impl.BeneficiarioAgendamentoService service;
 	
 	@Mock
 	private cnAgendamentoFeignClient repository;
