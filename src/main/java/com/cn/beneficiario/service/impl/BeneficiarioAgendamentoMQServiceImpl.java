@@ -3,11 +3,13 @@ package com.cn.beneficiario.service.impl;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cn.beneficiario.dto.AgendamentoMQ;
 import com.cn.beneficiario.repository.BeneficiarioAgendamentoMQRepository;
 import com.cn.beneficiario.service.BeneficiarioAgendamentoMQService;
 
+@Service
 public class BeneficiarioAgendamentoMQServiceImpl implements BeneficiarioAgendamentoMQService{
 	
 	@Autowired

@@ -1,10 +1,14 @@
 package com.cn.beneficiario.service.impl;
 
 import java.util.Date;
+
+import org.springframework.stereotype.Service;
+
 import com.cn.beneficiario.dto.ExameMQ;
 import com.cn.beneficiario.repository.BeneficiarioExameMQRepository;
 import com.cn.beneficiario.service.BeneficiarioExameMQService;
 
+@Service
 public class BeneficiarioExameMQServiceImpl implements BeneficiarioExameMQService{
 
 	private BeneficiarioExameMQRepository repository;
