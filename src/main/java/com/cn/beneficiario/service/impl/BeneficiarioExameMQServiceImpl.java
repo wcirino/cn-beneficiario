@@ -28,7 +28,8 @@ public class BeneficiarioExameMQServiceImpl implements BeneficiarioExameMQServic
 	@Override
 	public ExameMQ inserirExame(ExameMQ exame) throws Exception {
 		if(exame !=  null && exame.getId() == null) {
-			return repository.save(exame);
+		// repository.SaveEmaxeSQL(exame.getDataexame(), exame.getIdbenef(), exame.getIdexame(), exame.getIdtipoexame());
+		 return exame;
 		}
 		else {
 			throw new Exception("Erro ao salvar arquivo RabbitMQ");

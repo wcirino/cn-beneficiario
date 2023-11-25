@@ -19,6 +19,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(value = "beneficiario agendamento", description = "agendamento beneficiario", tags = {"Agendamento beneficiario EndPoint"})
 @RestController
 @RequestMapping(value ="/api-beneficiario-agendamento")
+						///api-beneficiario-agendamento/
 public class BeneficiarioAgendamentoController {
 
 	@Autowired
@@ -27,13 +28,14 @@ public class BeneficiarioAgendamentoController {
 	private static final Logger LOG = LoggerFactory.getLogger(BeneficiarioAgendamentoController.class);
 	
 	@ApiOperation(value ="agendamento paginada com beneficiario e sem id all")
-	@GetMapping(value = "/agendamento-beneficiario-id-page/")
+	@GetMapping(value = "/agendamento-beneficiario-id-page")
+					  //	 /agendamento-beneficiario-id-page
 	public ResponseEntity<?> findBeneficiarioAgendamentoComIdDataSolicitacao_page(
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "limit", defaultValue = "10") int limit,
-			@RequestParam int id,
-			@RequestParam String startdt,
-			@RequestParam String enddt
+			@RequestParam(required = false) int id,
+			@RequestParam(required = false) String startdt,
+			@RequestParam(required = false) String enddt
 	) throws Exception{
 
         LOG.info("Consulta paginada com beneficiario e seu id all");

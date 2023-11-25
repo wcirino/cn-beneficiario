@@ -1,12 +1,15 @@
 package com.cn.beneficiario.feignclients.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.cn.beneficiario.dto.ExameDTO;
 import com.cn.beneficiario.dto.ExamePageDTO;
 import com.cn.beneficiario.feignclients.cnExamefeignClient;
 
@@ -26,5 +29,20 @@ public class BeneficiarioExameService {
 		return obj.orElseThrow(() -> new Exception());
 	}
 	
+	public Page<ExameDTO> findExamePage(int page,int limit,String carteirinha,Integer codbenef,String startdt,String enddt,Integer idexame,Integer tipoexame) throws Exception {
+
+		LOG.info("Inicio chamada do microservico findBeneficia Dinamica");
+		Page<ExameDTO> obj = (Page<ExameDTO>) service.findBeneficiarioExame(page, limit, carteirinha, codbenef, startdt, enddt, idexame, tipoexame);
+		LOG.info("Fim findconsultaBetween");
+		return obj;// obj.orElseThrow(() -> new Exception());
+	}
+	
+	public List<ExameDTO> findExameList(int page,int limit,String carteirinha,Integer codbenef,String startdt,String enddt,Integer idexame,Integer tipoexame) throws Exception {
+
+		LOG.info("Inicio chamada do microservico findBeneficia Dinamica");
+		Optional<List<ExameDTO>> obj = (Optional<List<ExameDTO>>) Optional.ofNullable(service.findBeneficiarioExameAll(page, limit, carteirinha, codbenef, startdt, enddt, idexame, tipoexame).getBody());
+		LOG.info("Fim findconsultaBetween");
+		return  obj.orElseThrow(() -> new Exception());
+	}
 	
 }

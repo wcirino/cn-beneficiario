@@ -22,7 +22,7 @@ public class ExameMqSubscriber {
 	
 	@RabbitListener(queues = "${mq.queues.cn-exame}")
 	public void recebendoSolicitacaoConsulta(@Payload String payload) throws Exception {
-		LOG.info("recebendo dados dados !!");
+		LOG.info("recebendo dados dados exame!!");
 		ObjectMapper mapper = new ObjectMapper();
 		//ConsultaDTO dados = mapper.readValue(payload, ConsultaDTO.class);
 		ExameMQ dados = mapper.readValue(payload, ExameMQ.class);
