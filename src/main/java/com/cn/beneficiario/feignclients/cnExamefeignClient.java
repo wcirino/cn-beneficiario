@@ -1,5 +1,7 @@
 package com.cn.beneficiario.feignclients;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +38,7 @@ public interface cnExamefeignClient {
 	) throws Exception;
 	
 	@GetMapping(value = "/exame-beneficiario-all")
-	public ResponseEntity<?> findBeneficiarioExameAll(
+	public ResponseEntity<List<ExameDTO>> findBeneficiarioExameAll(
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "limit", defaultValue = "10") int limit,
 			@RequestParam(required = false) String carteirinha,
