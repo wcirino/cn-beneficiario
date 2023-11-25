@@ -16,6 +16,7 @@ import com.cn.beneficiario.dto.Beneficiario;
 import com.cn.beneficiario.dto.BeneficiarioPageDTO;
 import com.cn.beneficiario.feignclients.cnCarteirinhaFeign;
 import com.cn.beneficiario.repository.BeneficiarioRepository;
+import com.cn.beneficiario.service.CarteirinhaService;
 
 
 @Service
@@ -25,7 +26,7 @@ public class BeneficiarioServiceImpl {
 	private BeneficiarioRepository repository; 
 		
 	@Autowired
-	private cnCarteirinhaFeign carteirinha;
+	private CarteirinhaService carteirinha;
 	
 	@Autowired
 	RestTemplate restTemplate;
@@ -86,7 +87,7 @@ public class BeneficiarioServiceImpl {
 	}
 	
     public String gerarCarteirinha() throws Exception {
-    	return carteirinha.GerarCarteirinha().getBody();
+    	return carteirinha.GerandoCarteirinha();
     }
 	
 	/*

@@ -33,6 +33,18 @@ public interface cnAgendamentoExameConsultaFeignClient {
 			@RequestParam(required = false) Integer tipoConsuilta
 	) throws Exception;
 	
+	@GetMapping(value = "/consulta-beneficiario")
+	public ResponseEntity<?> find_Beneficiario_Consulta(
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "limit", defaultValue = "10") int limit,
+			@RequestParam(required = false) String carteirinha,
+			@RequestParam(required = false) Integer codbenef,
+			@RequestParam(required = false) String startdt,
+			@RequestParam(required = false) String enddt,
+			@RequestParam(required = false) Integer idconsulta,
+			@RequestParam(required = false) Integer tipoConsuilta
+	) throws Exception;
+	
 	@GetMapping(value = "/consulta-beneficiario-dt-page/")
 	public ResponseEntity<?> findBeneficiarioConsultaComIdDataSolicitacao_page(
 			@RequestParam(value = "page", defaultValue = "0") int page,

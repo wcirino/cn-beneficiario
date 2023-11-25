@@ -21,4 +21,16 @@ public interface cnAgendamentoFeignClient {
 			@RequestParam String enddt
 	) throws Exception;
 	
+	@GetMapping(value = "/agendamento-beneficiario-all")
+	public ResponseEntity<?> findBeneficiarioAgendamentoAll(
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "limit", defaultValue = "10") int limit,
+			@RequestParam(required = false) String carteirinha,
+			@RequestParam(required = false) Integer codbenef,
+			@RequestParam(required = false) String startdt,
+			@RequestParam(required = false) String enddt,
+			@RequestParam(required = false) Integer idagendamento,
+			@RequestParam(required = false) Integer idtipoagendamento
+	) throws Exception;
+	
 }

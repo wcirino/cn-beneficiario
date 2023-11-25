@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cn.beneficiario.dto.AgendamentoDTO;
 import com.cn.beneficiario.dto.AgendamentoPageDTO;
 import com.cn.beneficiario.dto.Beneficiario;
 import com.cn.beneficiario.dto.ConsultaDTO;
@@ -67,13 +68,6 @@ public class BeneficiarioController {
 		return new ResponseEntity<>(benef,HttpStatus.OK);
 	}
 	
-//	@GetMapping(value = "/")
-//	public ResponseEntity<?> findAllBeneficiariostest() throws Exception{
-//		LOG.info("iniciando findAllBeneficiarios");
-//		LOG.info("fim findAllBeneficiarios");
-//		return new ResponseEntity<>("Chegou na requisição",HttpStatus.OK);
-//	}
-
 	
 	@PostMapping(value = "/beneficiario")
 	public ResponseEntity<?> InsertBeneficiario(@RequestBody Beneficiario dto)throws Exception{
@@ -110,59 +104,6 @@ public class BeneficiarioController {
 		return new ResponseEntity<>("Novo teste 1",HttpStatus.OK);
 	} 
 	
-	@ApiOperation(value ="agendamento paginada com beneficiario e sem id all")
-	@GetMapping(value = "/agendamento-beneficiario-id-page")
-					  //	 /agendamento-beneficiario-id-page
-	public ResponseEntity<?> findBeneficiarioAgendamentoComIdDataSolicitacao_page(
-			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "limit", defaultValue = "10") int limit,
-			@RequestParam(required = false) int id,
-			@RequestParam(required = false) String startdt,
-			@RequestParam(required = false) String enddt
-	) throws Exception{
-
-        LOG.info("Consulta paginada com beneficiario e seu id all");
-		
-		AgendamentoPageDTO agenda = service.findAgendamentoBetweenComIDPage(page, limit, id, startdt, enddt);
-		LOG.info("fim Consulta paginada com beneficiario e seu id all");
-		return new ResponseEntity<>(agenda,HttpStatus.OK);
-	}
-	
-	@ApiOperation(value ="exame paginada com beneficiario e sem id all")
-	@GetMapping(value = "/exame-beneficiario-page/")
-	public ResponseEntity<?> findBeneficiarioExameComIdDataSolicitacao_page(
-			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "limit", defaultValue = "10") int limit,
-			@RequestParam int id,
-			@RequestParam String startdt,
-			@RequestParam String enddt
-	) throws Exception{
-		
-        LOG.info("exame paginada com beneficiario e seu id all");	
-	
-		ExamePageDTO exameDto = exame.findExameBetweenIDPage(page, limit, id, startdt, enddt);
-		LOG.info("fim exame paginada com beneficiario e seu id all");
-		return new ResponseEntity<>(exameDto,HttpStatus.OK);
-	}
-	
-	@GetMapping(value = "/exame-beneficiario")
-	public ResponseEntity<?> findBeneficiarioExame(
-			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "limit", defaultValue = "10") int limit,
-			@RequestParam(required = false) String carteirinha,
-			@RequestParam(required = false) Integer codbenef,
-			@RequestParam(required = false) String startdt,
-			@RequestParam(required = false) String enddt,
-			@RequestParam(required = false) Integer idexame,
-			@RequestParam(required = false) Integer tipoexame
-	) throws Exception{
-		
-	    LOG.info("exame paginada com beneficiario e seu id all");	
-		
-			Page<ExameDTO> exameDto = exame.findExamePage(page, limit, carteirinha, codbenef, startdt, enddt, idexame, tipoexame);
-			LOG.info("fim exame paginada com beneficiario e seu id all");
-			return new ResponseEntity<>(exameDto,HttpStatus.OK);
-	}
 	
 	@GetMapping(value = "/exame-beneficiario-list")
 	public ResponseEntity<?> findBeneficiarioExameList(
@@ -176,24 +117,51 @@ public class BeneficiarioController {
 			@RequestParam(required = false) Integer tipoexame
 	) throws Exception{
 		
-	    LOG.info("exame /exame-beneficiario-list");	
+			LOG.info("exame /exame-beneficiario-list");	
 		
 			List<ExameDTO> exameDto = exame.findExameList(page, limit, carteirinha, codbenef, startdt, enddt, idexame, tipoexame);
 			LOG.info("fim exame /exame-beneficiario-list");
 			return new ResponseEntity<>(exameDto,HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/busca-All-consultas")
-	public ResponseEntity<?> FindAllConsulta() throws Exception{
-		LOG.info("Buscando na api-cn-Consultas");
-		List<ConsultaDTO> consultas = consulta.BuscaConsultasAllService();
-		return  new ResponseEntity<>(consultas,HttpStatus.OK);
+	@GetMapping(value = "/consulta-beneficiario")
+	public ResponseEntity<?> find_Beneficiario_Consulta(
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "limit", defaultValue = "10") int limit,
+			@RequestParam(required = false) String carteirinha,
+			@RequestParam(required = false) Integer codbenef,
+			@RequestParam(required = false) String startdt,
+			@RequestParam(required = false) String enddt,
+			@RequestParam(required = false) Integer idconsulta,
+			@RequestParam(required = false) Integer tipoConsuilta
+	) throws Exception{
+		
+		LOG.info("chamando consulta-beneficiario");	
+		
+		List<ConsultaDTO> consultaDto = consulta.findConsultaList(page, limit, carteirinha, codbenef, startdt, enddt, idconsulta, tipoConsuilta);
+		LOG.info("fim  /consulta-beneficiario");
+		return new ResponseEntity<>(consultaDto,HttpStatus.OK);
+		
 	}
 	
-	@GetMapping(value = "/busca-consulta-id/{id}")
-	public ResponseEntity<?> FindAIDConsulta(@PathVariable int id) throws Exception{
-		LOG.info("Buscando FindAIDConsulta  na  api-cn-Consultas");
-		ConsultaDTO consultas = consulta.BuscaConsultasIDService(id);
-		return  new ResponseEntity<>(consultas,HttpStatus.OK);
+	@GetMapping(value = "/agendamento-beneficiario-all")
+	public ResponseEntity<?> findBeneficiarioAgendamentoAll(
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "limit", defaultValue = "10") int limit,
+			@RequestParam(required = false) String carteirinha,
+			@RequestParam(required = false) Integer codbenef,
+			@RequestParam(required = false) String startdt,
+			@RequestParam(required = false) String enddt,
+			@RequestParam(required = false) Integer idagendamento,
+			@RequestParam(required = false) Integer idtipoagendamento
+	) throws Exception{
+	
+		LOG.info("chamando agendamento-beneficiario");	
+		List<AgendamentoDTO> consultaDto = service.findConsultaList(page, limit, carteirinha, codbenef, startdt, enddt, idagendamento, idtipoagendamento);
+		LOG.info("fim  /agendamento-beneficiario");
+		return new ResponseEntity<>(consultaDto,HttpStatus.OK);
+		
 	}
+	
+	
 }
