@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cn.beneficiario.dto.ExameDTO;
 import com.cn.beneficiario.dto.ExamePageDTO;
+import com.cn.beneficiario.feignclients.dto.ExameFeignDTO;
 
 @Component
 @FeignClient(contextId = "exame-benef",value = "cn-agendamento-exame-consulta", path ="/api-exame")
@@ -26,7 +27,7 @@ public interface cnExamefeignClient {
 	) throws Exception;
 	
 	@GetMapping(value = "/exame-beneficiario")
-	public ResponseEntity<Page<ExameDTO>> findBeneficiarioExame(
+	public ResponseEntity<Page<ExameFeignDTO>> findBeneficiarioExame(
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "limit", defaultValue = "10") int limit,
 			@RequestParam(required = false) String carteirinha,
@@ -38,7 +39,7 @@ public interface cnExamefeignClient {
 	) throws Exception;
 	
 	@GetMapping(value = "/exame-beneficiario-all")
-	public ResponseEntity<List<ExameDTO>> findBeneficiarioExameAll(
+	public ResponseEntity<List<ExameFeignDTO>> findBeneficiarioExameAll(
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "limit", defaultValue = "10") int limit,
 			@RequestParam(required = false) String carteirinha,

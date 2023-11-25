@@ -24,6 +24,9 @@ import com.cn.beneficiario.dto.AgendamentoDTO;
 import com.cn.beneficiario.dto.Beneficiario;
 import com.cn.beneficiario.dto.ConsultaDTO;
 import com.cn.beneficiario.dto.ExameDTO;
+import com.cn.beneficiario.feignclients.dto.AgendamentoFeignDTO;
+import com.cn.beneficiario.feignclients.dto.ConsultaFeignDTO;
+import com.cn.beneficiario.feignclients.dto.ExameFeignDTO;
 import com.cn.beneficiario.feignclients.service.impl.BeneficiarioAgendamentoService;
 import com.cn.beneficiario.feignclients.service.impl.BeneficiarioConsultaService;
 import com.cn.beneficiario.feignclients.service.impl.BeneficiarioExameService;
@@ -114,7 +117,7 @@ public class BeneficiarioController {
 		
 			LOG.info("exame /exame-beneficiario-list");	
 		
-			List<ExameDTO> exameDto = exame.findExameList(page, limit, carteirinha, codbenef, startdt, enddt, idexame, tipoexame);
+			List<ExameFeignDTO> exameDto = exame.findExameList(page, limit, carteirinha, codbenef, startdt, enddt, idexame, tipoexame);
 			LOG.info("fim exame /exame-beneficiario-list");
 			return new ResponseEntity<>(exameDto,HttpStatus.OK);
 	}
@@ -133,7 +136,7 @@ public class BeneficiarioController {
 		
 		LOG.info("chamando consulta-beneficiario");	
 		
-		List<ConsultaDTO> consultaDto = consulta.findConsultaList(page, limit, carteirinha, codbenef, startdt, enddt, idconsulta, tipoConsuilta);
+		List<ConsultaFeignDTO> consultaDto = consulta.findConsultaList(page, limit, carteirinha, codbenef, startdt, enddt, idconsulta, tipoConsuilta);
 		LOG.info("fim  /consulta-beneficiario");
 		return new ResponseEntity<>(consultaDto,HttpStatus.OK);
 		
@@ -152,7 +155,7 @@ public class BeneficiarioController {
 	) throws Exception{
 	
 		LOG.info("chamando agendamento-beneficiario");	
-		List<AgendamentoDTO> consultaDto = service.findConsultaList(page, limit, carteirinha, codbenef, startdt, enddt, idagendamento, idtipoagendamento);
+		List<AgendamentoFeignDTO> consultaDto = service.findConsultaList(page, limit, carteirinha, codbenef, startdt, enddt, idagendamento, idtipoagendamento);
 		LOG.info("fim  /agendamento-beneficiario");
 		return new ResponseEntity<>(consultaDto,HttpStatus.OK);
 		

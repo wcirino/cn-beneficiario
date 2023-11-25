@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cn.beneficiario.dto.AgendamentoDTO;
 import com.cn.beneficiario.dto.AgendamentoPageDTO;
+import com.cn.beneficiario.feignclients.dto.AgendamentoFeignDTO;
 
 @Component
 @FeignClient(contextId = "agendamento-benf", value = "cn-agendamento-exame-consulta", path ="/api-agendamento")
@@ -25,7 +26,7 @@ public interface cnAgendamentoFeignClient {
 	) throws Exception;
 	
 	@GetMapping(value = "/agendamento-beneficiario-all")
-	public ResponseEntity<List<AgendamentoDTO>> findBeneficiarioAgendamentoAll(
+	public ResponseEntity<List<AgendamentoFeignDTO>> findBeneficiarioAgendamentoAll(
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "limit", defaultValue = "10") int limit,
 			@RequestParam(required = false) String carteirinha,

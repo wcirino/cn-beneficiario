@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cn.beneficiario.dto.ConsultaDTO;
+import com.cn.beneficiario.feignclients.dto.ConsultaFeignDTO;
 
 @Component
 @FeignClient(contextId = "consulta-benf",value = "cn-agendamento-exame-consulta", path ="/api-consulta")
@@ -23,7 +24,7 @@ public interface cnAgendamentoExameConsultaFeignClient {
 	
 	
 	@GetMapping(value = "/consulta-beneficiario")
-	public ResponseEntity<List<ConsultaDTO>> find_Beneficiario_Consulta(
+	public ResponseEntity<List<ConsultaFeignDTO>> find_Beneficiario_Consulta(
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "limit", defaultValue = "10") int limit,
 			@RequestParam(required = false) String carteirinha,
