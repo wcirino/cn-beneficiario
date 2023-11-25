@@ -5,7 +5,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -22,17 +21,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cn.beneficiario.dto.AgendamentoDTO;
-import com.cn.beneficiario.dto.AgendamentoPageDTO;
 import com.cn.beneficiario.dto.Beneficiario;
 import com.cn.beneficiario.dto.ConsultaDTO;
 import com.cn.beneficiario.dto.ExameDTO;
-import com.cn.beneficiario.dto.ExamePageDTO;
 import com.cn.beneficiario.feignclients.service.impl.BeneficiarioAgendamentoService;
 import com.cn.beneficiario.feignclients.service.impl.BeneficiarioConsultaService;
 import com.cn.beneficiario.feignclients.service.impl.BeneficiarioExameService;
 import com.cn.beneficiario.service.impl.BeneficiarioServiceImpl;
-
-import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value = "/api-beneficiario")

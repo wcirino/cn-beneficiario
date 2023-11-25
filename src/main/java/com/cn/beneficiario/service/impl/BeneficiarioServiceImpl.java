@@ -31,6 +31,9 @@ public class BeneficiarioServiceImpl {
 	@Autowired
 	RestTemplate restTemplate;
 	
+	@Autowired
+	private BeneficiarioMqPublisher benefMq;
+	
 	private static final Logger LOG = LoggerFactory.getLogger(BeneficiarioServiceImpl.class);
 	
 	public Beneficiario find_beneficiario_id(int id) throws Exception{
@@ -59,6 +62,9 @@ public class BeneficiarioServiceImpl {
 			LOG.info("inserindo InsertBeneficiario");
 			Beneficiario obj = repository.save(dto);
 			LOG.info("retornando InsertBeneficiario");
+			LOG.info("Enviando arquivo rabbitmq benef insert");
+			benefMq.envioBeneficiario(obj);
+			LOG.info("Enviado com sucesso rabbitmq benef insert");
 			return obj;
 		}
 	}
@@ -72,6 +78,9 @@ public class BeneficiarioServiceImpl {
 			LOG.info("UpdateBeneficiario");
 			Beneficiario obj = repository.save(dto);
 			LOG.info("retornando UpdateBeneficiario");
+			LOG.info("Enviando arquivo rabbitmq benef alter");
+			benefMq.envioBeneficiarioAlterar(dto);
+			LOG.info("Enviado com sucesso rabbitmq benef alter");
 			return obj;
 		}
 	}
