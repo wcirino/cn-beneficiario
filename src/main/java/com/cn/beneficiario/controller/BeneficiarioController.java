@@ -30,6 +30,8 @@ import com.cn.beneficiario.feignclients.dto.ExameFeignDTO;
 import com.cn.beneficiario.feignclients.service.impl.BeneficiarioAgendamentoService;
 import com.cn.beneficiario.feignclients.service.impl.BeneficiarioConsultaService;
 import com.cn.beneficiario.feignclients.service.impl.BeneficiarioExameService;
+import com.cn.beneficiario.repository.CidadeRepository;
+import com.cn.beneficiario.repository.EstadoRepository;
 import com.cn.beneficiario.service.impl.BeneficiarioServiceImpl;
 
 @RestController
@@ -48,7 +50,11 @@ public class BeneficiarioController {
 	@Autowired
 	private BeneficiarioExameService exame;
 	
+	@Autowired
+	private EstadoRepository utilEstado;
 	
+	@Autowired
+	private CidadeRepository utilCidade;	
 	
 	private static final Logger LOG = LoggerFactory.getLogger(BeneficiarioController.class);
 	
@@ -87,7 +93,7 @@ public class BeneficiarioController {
 			@RequestParam String enddt
 	) throws Exception{
 		
-		String direction = "desc";
+		String direction = "asc";
         Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
         LOG.info("exame paginada com beneficiario e sem id all");
 		Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "idbenef"));
@@ -161,5 +167,16 @@ public class BeneficiarioController {
 		
 	}
 	
+	@GetMapping(value = "/beneficiario/estado")
+	public ResponseEntity<?> findEstado() throws Exception {
+		LOG.info("iniciando find Estado");
+		return new ResponseEntity<>(utilEstado.findAll(),HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/beneficiario/cidade")
+	public ResponseEntity<?> findCidade(@RequestParam Integer cidade) throws Exception {
+		LOG.info("iniciando find Cidade");
+		return new ResponseEntity<>(utilCidade.getcidades(23),HttpStatus.OK);
+	}
 	
 }

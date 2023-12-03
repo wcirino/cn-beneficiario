@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -46,6 +48,7 @@ public class Beneficiario   implements Serializable{
 	@Column(name = "RG")
 	private String RG;
 
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "data_nasc")
 	private Date data_nasc;
 
@@ -66,6 +69,7 @@ public class Beneficiario   implements Serializable{
 	@Column(name = "carteirinha")
 	private String carteirinha;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name="data_cadas")
 	private Date data_cadas;
 	
