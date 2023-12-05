@@ -89,13 +89,5 @@ public class BeneficiarioServiceImpl {
     	return carteirinha.GerarCarteirinha().getBody();
     }
 	
-	/*
-	 * private benefConsultaDTO beneficiariomodelMapperOne(Beneficiario dto) {
-	 * benefConsultaDTO consult = m.map(dto, benefConsultaDTO.class); return
-	 * consult; }
-	 * 
-	 * private List<benefConsultaDTO> beneficiarioModelMapperList(List<Beneficiario>
-	 * dto){ return dto.stream().map(obj ->
-	 * beneficiariomodelMapperOne(obj)).collect(Collectors.toList()); }
-	 */
+
 }
